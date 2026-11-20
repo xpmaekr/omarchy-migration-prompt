@@ -86,7 +86,40 @@ hyprctl configerrors    # должно быть пусто
 ```
 Проверить визуально: переключение рабочих столов (Super+1..9 / колесо) — старый уезжает, новый выезжает с пружинкой.
 
-## 5. Проверка
+## 5. Клавиатурные бинды (`~/.config/hypr/bindings.lua`)
+Замени содержимое файла (или добавь блок в конец):
+```lua
+-- File manager
+o.bind("SUPER + E", "File manager", "omarchy launch nautilus cwd")
+
+-- CLI tools in terminal. Replaces SUPER + V (universal paste) and SUPER + W (close window).
+o.rebind("SUPER + V", "Vibe", "omarchy-launch-terminal vibe")
+o.rebind("SUPER + W", "OpenCode", "omarchy-launch-terminal opencode")
+
+-- Task manager (omarchy-task-manager): focus it if running, else launch.
+o.bind("SUPER + ALT + DELETE", "Task manager", "omarchy-task-manager")
+
+-- Open a terminal. Replaces SUPER + T (was: toggle floating/tiling).
+o.rebind("SUPER + T", "Terminal", o.launch_terminal())
+
+-- Blank the screen without stopping anything (DPMS off). Replaces SUPER + SHIFT + P
+-- (was: Google Photos). Any key press or mouse movement turns the screen back on.
+o.rebind("SUPER + SHIFT + P", "Blank screen", function()
+  hl.timer(function()
+    hl.dispatch(hl.dsp.dpms({ action = "disable" }))
+  end, { timeout = 500, type = "oneshot" })
+end)
+```
+Итог: `Super+E` — файловый менеджер, `Super+V` — Vibe, `Super+W` — OpenCode, `Super+Alt+Delete` — диспетчер задач, `Super+T` — терминал, `Super+Shift+P` — погасить экран (DPMS off, фоновые процессы не останавливаются), `Alt+Shift` — раскладка.
+
+## 6. Раскладка: переключение Alt+Shift (`~/.config/hypr/input.lua`)
+В секции `hl.config({ input = { ... } })` задай:
+```lua
+kb_options = "omarchy:shift_caps_compose,grp:alt_shift_toggle"
+```
+(по умолчанию Omarchy — Left Alt + Right Alt; здесь левый Alt + левый Shift).
+
+## 7. Проверка
 ```bash
 which telegram-desktop fastfetch lavat btop mpv
 fastfetch | head -5
