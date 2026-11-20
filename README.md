@@ -13,6 +13,7 @@
 - список пакетов окружения
 - кастомные темы Omarchy
 - shell-плагины (git и локальные) с командами `omarchy plugin add/enable`
+- Dimland Control — панель яркости с дополнительным затемнением (`dimland-git`)
 - личные клавиатурные бинды (`bindings.lua`) и переключение раскладки Alt+Shift (`input.lua`)
 - блок `hl.curve`/`hl.animation` для spring-анимации рабочих столов в `~/.config/hypr/looknfeel.lua`
 - финальные проверки

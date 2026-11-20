@@ -20,7 +20,7 @@ yay -S --needed --noconfirm \
   visual-studio-code-bin virtualbox virtualbox-host-modules-arch \
   starship yazi eza bat fd ripgrep tldr tree 7zip \
   gpu-screen-recorder imv sushi pinta android-tools ddcutil \
-  hyprpicker superwhisper-bin \
+  hyprpicker superwhisper-bin dimland-git \
   ttf-ia-writer ttfx woff2-font-awesome
 ```
 Примечания:
@@ -66,6 +66,21 @@ omarchy plugin enable superwhisper.panel
 omarchy plugin list
 ```
 Ожидаемо включены third-party: `io.github.diegopluna.argus`, `dimland-control`, `superwhisper.panel`, `io.github.aicyraa.workspace-gallery`. `rosakodu.dock` — выключен.
+
+### Dimland Control (панель яркости)
+Это bar-widget, который добавляет в панель дисплея слайдер **extra dim (dimland-overlay)** под обычной яркостью — вечером можно убавить яркость ниже минимума монитора.
+1. Убедись, что бинарь есть: `which dimland` (пакет `dimland-git`, ставится в шаге 1).
+2. Скопируй папку плагина `dimland-control` в `~/.config/omarchy/plugins/` (в ней лежат `install.sh`, `Panel.qml`, `manifest.json`, `i18n/`).
+3. Запусти установщик — он спросит язык интерфейса (ru/en) и сам включит плагин в правую секцию:
+```bash
+bash ~/.config/omarchy/plugins/dimland-control/install.sh
+```
+4. Язык хранится в `~/.config/dimland-control/language` (на старом ПК — `ru`). Если нужно без интерактива:
+```bash
+mkdir -p ~/.config/dimland-control && echo ru > ~/.config/dimland-control/language
+omarchy plugin enable dimland-control --section right
+```
+Проверка: клик по индикатору дисплея в баре → под ползунком яркости есть слайдер дополнительного затемнения, значения подписаны («Night owl», «Candlelit», …).
 
 ## 4. «Желейная» анимация перехода рабочих столов
 В конец `~/.config/hypr/looknfeel.lua` добавь:
